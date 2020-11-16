@@ -11,7 +11,7 @@ services:
     container_name: bn_app
     command: ["bash", "-c", "tail -f /dev/null"]
     ports:
-      - "80:80"
+      - "8080:8080"
     volumes:
       - bn_data:/srv/www/
 
