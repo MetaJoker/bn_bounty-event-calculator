@@ -1,0 +1,25 @@
+FROM ubuntu:20.04
+
+# install tools
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    vim \
+    dumb-init \ 
+    && rm -rf /var/lib/apt/lists/*
+
+# install node.js
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash - \
+    && apt-get install -y nodejs
+ 
+
+ARG REPO_URL
+
+RUN git clone ${REPO_URL} /srv/www/
+
+# install dependencies
+WORKDIR /srv/www
+RUN npm install
+
+ENTRYPOINT ["/usr/bin/dumb-init" "--"]
+CMD ["bash"]

@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        - REPO_URL=${REPO_URL}
+    container_name: bn_app
+    command: ["bash", "-c", "tail -f /dev/null"]
+    ports:
+      - "80:80"
+    volumes:
+      - bn_data:/srv/www/
+
+networks:
+  default:
+    name: bn_app_dev
+
+volumes:
+  bn_data:
